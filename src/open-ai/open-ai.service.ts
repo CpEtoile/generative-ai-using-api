@@ -1,5 +1,5 @@
-import axios from "axios";
-import { Injectable } from "@nestjs/common";
+import axios from 'axios';
+import { Injectable } from '@nestjs/common';
 
 const apiKey = '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'; // Replace with your actual API key
 
@@ -16,7 +16,7 @@ export class OpenAiService {
           model: 'text-davinci-003',
           prompt: prompt,
           max_tokens: 100,
-          temperature: 0.6
+          temperature: 0.1,
         },
         {
           headers: {
@@ -26,8 +26,12 @@ export class OpenAiService {
         },
       );
 
+      console.dir(response, { depth: 6 });
+
       return response.data.choices[0].text;
     } catch (error) {
+      console.dir(error, { depth: 6 });
+
       console.error(error);
     }
   }
