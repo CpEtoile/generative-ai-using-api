@@ -11,4 +11,9 @@ export class OpenAiController {
   async callOpenAiApi(@Param('noun') noun: string): Promise<string> {
     return await this.openAiService.getSingleFormOfANoun(noun);
   }
+
+  @Get('test')
+  async testOpenAiApi(): Promise<string> {
+    return await this.openAiService.callOpenAiTest();
+  }
 }
