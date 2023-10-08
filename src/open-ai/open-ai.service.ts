@@ -1,8 +1,8 @@
 import axios from 'axios';
+import * as process from 'process';
 import { Injectable } from '@nestjs/common';
 
-const apiKey = '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'; // Replace with your actual API key
-
+const apiKey = process.env.OPEN_AI_API_KEI;
 
 @Injectable()
 export class OpenAiService {
@@ -10,31 +10,53 @@ export class OpenAiService {
     const prompt = `Quest ce que c'est la form singulier du mot ${noun}, retourne sous format JSON`; // Your input prompt
 
     try {
+      const authorization = `Bearer ${apiKey}`;
+      console.log(authorization);
       const response = await axios.post(
         'https://api.openai.com/v1/completions',
         {
           model: 'text-davinci-003',
           prompt: prompt,
           max_tokens: 100,
-          temperature: 0.1,
+          temperature: 0.1
         },
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${apiKey}`,
-          },
-        },
+            Authorization: authorization
+          }
+        }
       );
-
-      console.dir(response, { depth: 6 });
 
       return response.data.choices[0].text;
     } catch (error) {
-      console.dir(error, { depth: 6 });
-
       console.error(error);
     }
   }
 
+  async callOpenAiTest(): Promise<string> {
+    try {
+      const response = await axios.post(
+        'https://api.openai.com/v1/completions',
+        {
+          model: 'text-davinci-003',
+          prompt: prompt,
+          max_tokens: 100,
+          temperature: 0.6
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${apiKey}`
+          }
+        }
+      );
 
+      const res = response.data.choices[0].text;
+      console.log(res);
+      return res;
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }
