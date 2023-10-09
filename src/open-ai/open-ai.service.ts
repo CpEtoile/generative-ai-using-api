@@ -18,14 +18,14 @@ export class OpenAiService {
           model: 'text-davinci-003',
           prompt: prompt,
           max_tokens: 100,
-          temperature: 0.1
+          temperature: 0.1,
         },
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: authorization
-          }
-        }
+            Authorization: authorization,
+          },
+        },
       );
 
       return response.data.choices[0].text;
@@ -42,14 +42,14 @@ export class OpenAiService {
           model: 'text-davinci-003',
           prompt: prompt,
           max_tokens: 100,
-          temperature: 0.6
+          temperature: 0.6,
         },
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${apiKey}`
-          }
-        }
+            Authorization: `Bearer ${apiKey}`,
+          },
+        },
       );
 
       const res = response.data.choices[0].text;
