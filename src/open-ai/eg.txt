@@ -1,0 +1,19 @@
+{ "role": "system", "content": "You are a helpful assistant." },
+{ "role": "user", "content": "how nx find project jsons ?" },
+
+
+
+If your Nx project has no angular.json and workspace.json files, then it is quite possible that the configuration settings may exist in Nx.json file. This file holds configuration settings related to Nx itself rather than any specific project. It contains information about workspace- and Nx-specific settings, such as which plugins are installed, computation caching settings, default project settings etc.
+
+However, if the specific project is utilizing a different framework such as React, the configuration might be held in a different JSON or configuration file specific to that framework. If this is the case, you will need to look at that particular file for project configuration.
+
+Keep in mind that the configuration can also be specified or overridden in your environment variables or specific npm scripts. Depending on how your project is set up, you might need to check those as well.
+
+It is highly recommended to check the official NX Documentation or the README/documentation associated with your project for the definitive answer.
+
+
+// ideas
+
+Jest test integ
+Options which model to use
+interface ?

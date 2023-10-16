@@ -26,6 +26,13 @@ export class OpenAiController {
   async fewShotPrompting(@Body() prompts: FewShotPrompt): Promise<string> {
     return await this.openAiService.callOpenAiWithFewShotPrompts(prompts);
   }
+
+  @Get('capital-of-a-country/:country')
+  async getCapitalOfACountry(
+    @Param('country') country: string,
+  ): Promise<string> {
+    return await this.openAiService.getCapitalOfACountry(country);
+  }
 }
 
 interface RolePrompt {
