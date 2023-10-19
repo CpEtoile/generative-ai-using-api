@@ -33,6 +33,13 @@ export class OpenAiController {
   ): Promise<string> {
     return await this.openAiService.getCapitalOfACountry(country);
   }
+
+  @Get('list-google-api-end-points')
+  async getGoolgeApiEndPoints(
+    @Param('country') country: string,
+  ): Promise<string> {
+    return await this.openAiService.getCapitalOfACountry(country);
+  }
 }
 
 interface RolePrompt {
