@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { OpenAiService } from './open-ai.service';
 
 export class FewShotPrompt {
@@ -16,7 +16,11 @@ export class OpenAiController {
     return await this.openAiService.callOpenAiTest();
   }
 
-  @Get('single-form:noun')
+  @Get('single-form/:noun')
+  @ApiOperation({
+    summary: 'Get the singular form of a word',
+    description: 'For all languages',
+  })
   async callOpenAiApi(@Param('noun') noun: string): Promise<string> {
     return await this.openAiService.getSingleFormOfANoun(noun);
   }

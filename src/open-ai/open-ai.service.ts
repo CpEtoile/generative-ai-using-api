@@ -1,41 +1,15 @@
 import axios from 'axios';
-import * as process from 'process';
 import { Injectable } from '@nestjs/common';
 import { FewShotPrompt } from './open-ai.controller';
-import OpenAI from 'openai';
-import { ChatCompletionMessageParam } from 'openai/src/resources/chat/completions';
-
-const apiKey = process.env.OPEN_AI_API_KEI;
-const openai = new OpenAI({ apiKey: apiKey });
+import { OpenAiRepository } from './open-ai.repository';
+import process from 'process';
 
 @Injectable()
 export class OpenAiService {
+  constructor(private readonly openAiRepository: OpenAiRepository) {}
+
   async getSingleFormOfANoun(noun: string): Promise<string> {
-    const prompt = `Quest ce que c'est la form singulier du mot ${noun}, retourne sous format JSON`; // Your input prompt
-
-    try {
-      const authorization = `Bearer ${apiKey}`;
-      console.log(authorization);
-      const response = await axios.post(
-        'https://api.openai.com/v1/completions',
-        {
-          model: 'text-davinci-003',
-          prompt: prompt,
-          max_tokens: 100,
-          temperature: 0.1,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: authorization,
-          },
-        },
-      );
-
-      return response.data.choices[0].text;
-    } catch (error) {
-      console.error(error);
-    }
+    return await this.getSingularFormWordFromFewShotPrompts(noun);
   }
 
   async callOpenAiTest(): Promise<string> {
@@ -51,7 +25,7 @@ export class OpenAiService {
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${apiKey}`,
+            Authorization: `Bearer ${process.env.OPEN_AI_API_KEI}`,
           },
         },
       );
@@ -64,58 +38,42 @@ export class OpenAiService {
     }
   }
 
-  async callOpenAiWithFewShotPrompts(prompts: FewShotPrompt) {
-    console.log(prompts);
+  async getSingularFormWordFromFewShotPrompts(wordInPluralForm: string) {
+    const fewShotPrompt: FewShotPrompt = {
+      prompts: [
+        {
+          role: 'system',
+          content: 'give singular and minuscule form of the word',
+        },
+        {
+          role: 'user',
+          content: 'bananas',
+        },
+        {
+          role: 'assistant',
+          content: 'banana',
+        },
+        {
+          role: 'user',
+          content: 'Vélos',
+        },
+        {
+          role: 'assistant',
+          content: 'vélo',
+        },
+        {
+          role: 'user',
+          content: wordInPluralForm,
+        },
+      ],
+    };
 
-    try {
-      const messages: Array<ChatCompletionMessageParam> = prompts.prompts.map(
-        (p) => ({
-          role: p.role,
-          content: p.content,
-        }),
-      );
-      const chatCompletion = await openai.chat.completions.create({
-        messages: messages,
-        model: 'gpt-4',
-        max_tokens: 500,
-      });
-
-      return chatCompletion.choices[0].message.content;
-    } catch (e) {
-      console.error(e);
-    }
+    return await this.openAiRepository.callOpenAiWithFewShotPrompts(
+      fewShotPrompt,
+    );
   }
 
   async getCapitalOfACountry(country: string) {
-    const prompts: FewShotPrompt = new FewShotPrompt();
-    prompts.prompts = [
-      { role: 'system', content: 'reply with only a word' },
-      { role: 'user', content: 'what is the capital of China?' },
-      { role: 'assistant', content: 'Beijing' },
-      { role: 'user', content: 'what is the capital of canada?' },
-      { role: 'assistant', content: 'Ottawa' },
-      { role: 'user', content: `what is the capital of ${country}?` },
-    ];
-
-    try {
-      const messages: Array<ChatCompletionMessageParam> = prompts.prompts.map(
-        (p) => ({
-          role: p.role,
-          content: p.content,
-        }),
-      );
-      const chatCompletion = await openai.chat.completions.create({
-        messages: messages,
-        model: 'gpt-3.5-turbo',
-        max_tokens: 100,
-        temperature: 0,
-      });
-
-      return chatCompletion.choices[0].message.content;
-    } catch (e) {
-      console.error(e);
-    }
+    return await this.openAiRepository.getCapitalOfACountry(country);
   }
 }
-
-// EG prompts

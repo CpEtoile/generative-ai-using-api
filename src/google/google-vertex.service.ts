@@ -1,7 +1,4 @@
-import {
-  EndpointServiceClient,
-  PredictionServiceClient,
-} from '@google-cloud/aiplatform';
+import { EndpointServiceClient } from '@google-cloud/aiplatform';
 import { Injectable } from '@nestjs/common';
 
 /**
@@ -13,14 +10,7 @@ const location = 'us-central1';
 const clientOptions = {
   apiEndpoint: 'us-central1-aiplatform.googleapis.com',
 };
-const predictionServiceClient = new PredictionServiceClient(clientOptions);
 
-PredictionServiceClient.log;
-
-// Specifies the location of the api endpoint
-const clientOptions = {
-  apiEndpoint: 'us-central1-aiplatform.googleapis.com',
-};
 const client = new EndpointServiceClient(clientOptions);
 
 @Injectable()
@@ -45,6 +35,4 @@ export class GoogleVertexService {
       return endpoint.name;
     }
   }
-
-  async predictCustomerTrainedModel() {}
 }
