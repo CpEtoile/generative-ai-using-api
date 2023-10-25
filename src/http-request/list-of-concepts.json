@@ -1,0 +1,24 @@
+{
+  "prompts": [
+    {
+      "role": "user",
+      "content": "from the list of ['white', 'black'], which is the most similar of 'Ivory' "
+    },
+    {
+      "role": "assistant",
+      "content": "white"
+    },
+    {
+      "role": "user",
+      "content": "from the list of ['train', 'plain','red fast car', 'red car'], which is the most similar of 'red car' "
+    },
+    {
+      "role": "assistant",
+      "content": "red car"
+    },
+    {
+      "role": "user",
+      "content": "from the list of [\"Baignoire\", \"Baignoire balnéo rectangulaire\", \"Baignoire balnéo angle\", \"Baignoire balnéo asymétrique\", \"Baignoire asymétrique\", \"Baignoire balnéo\", \"Baignoire balnéo avec tablier\", \"Baignoire d'angle\", \"Baignoire îlot rectangulaire\", \"Baignoire îlot\", \"Baignoire rectangulaire\", \"Baignoire îlot ovale\", \"Baignoire sabot\", \"Baignoire à porte\", \"Baignoire douche\", \"Baignoire sur pieds\", \"Baignoire semi îlot\", \"Baignoire douche hydro massante\"]\n, which is the most similar of 'Baignoire rectangulaire' "
+    }
+  ]
+}
