@@ -44,9 +44,6 @@ $ npm run test:cov
 
 ## To present
 
-- Open AI Api, we can choose model, we may use Gpt4 cheaply
-- Langchain better batched prompts, chain with pipe, can use tools like google search or local db, RAG used as
-  orchestrator
+- Open AI Api, API more flexible. We can choose model, we may use Gpt4 less expensive
+- Langchain chain the messages with pipe, can use tools like google search or local db, cf. RAG, orchestrator
 - Gpt4All, no need of wifi
-
-Nest is [MIT licensed](LICENSE).
