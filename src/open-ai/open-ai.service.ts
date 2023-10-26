@@ -76,4 +76,8 @@ export class OpenAiService {
   async getCapitalOfACountry(country: string) {
     return await this.openAiRepository.getCapitalOfACountry(country);
   }
+
+  async callOpenAiWithFewShotPrompts(prompts: FewShotPrompt) {
+    return this.openAiRepository.callOpenAiWithFewShotPrompts(prompts)
+  }
 }

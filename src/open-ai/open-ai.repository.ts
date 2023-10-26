@@ -5,40 +5,6 @@ import OpenAI from 'openai/index';
 @Injectable()
 export class OpenAiRepository {
   constructor(@Inject('OpenAi') private readonly openai: OpenAI) {}
-
-  async getSingularFormWordFromFewShotPrompts(wordInPluralForm: string) {
-    const fewShotPrompt: FewShotPrompt = {
-      prompts: [
-        {
-          role: 'system',
-          content: 'give singular and minuscule form of the word',
-        },
-        {
-          role: 'user',
-          content: 'bananas',
-        },
-        {
-          role: 'assistant',
-          content: 'banana',
-        },
-        {
-          role: 'user',
-          content: 'Vélos',
-        },
-        {
-          role: 'assistant',
-          content: 'vélo',
-        },
-        {
-          role: 'user',
-          content: wordInPluralForm,
-        },
-      ],
-    };
-
-    return await this.callOpenAiWithFewShotPrompts(fewShotPrompt);
-  }
-
   async callOpenAiWithFewShotPrompts(prompts: FewShotPrompt) {
     try {
       const messages: Array<ChatCompletionMessageParam> = prompts.prompts.map(
