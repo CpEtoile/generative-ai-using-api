@@ -1,0 +1,16 @@
+### langchain explaination
+POST http://localhost:3000/open-ai/few-shot-prompting
+accept: */*
+Content-Type: application/json
+
+< ./lang-chain.json
+
+
+
+
+### choose most similar from a list
+POST http://localhost:3000/open-ai/few-shot-prompting
+accept: */*
+Content-Type: application/json
+
+< ./list-of-concepts.json
